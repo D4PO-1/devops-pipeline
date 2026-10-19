@@ -26,15 +26,16 @@ jobs:
         pip install flask redis
         python -m py_compile app.py
  
-    # Step 4: Test building the Docker box to make sure the Dockerfile works
-    - name: Build Docker Image
-      run: |
-        docker build -t my-python-app:latest .
-
-    - name: Run Trivy Security Scan
-      uses: aquasecurity/trivy-action@master
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
       with:
-        image-ref: my-python-app:latest
-        format: 'table'
-        exit-code: '0'
-        severity: 'CRITICAL,HIGH'
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: dxpo/my-first-devops-pipeline:latest
+    
