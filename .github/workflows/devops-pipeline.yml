@@ -23,7 +23,7 @@ jobs:
     # Step 3: Test if the Python code has any obvious typing errors
     - name: Install Flask & Test syntax
       run: |
-        pip install flask
+        pip install flask redis
         python -m py_compile app.py
  
     # Step 4: Test building the Docker box to make sure the Dockerfile works
