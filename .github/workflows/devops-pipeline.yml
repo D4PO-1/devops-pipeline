@@ -1,22 +1,32 @@
-name: My First DevOps pipeline
+name: My First DevOps Pipeline
+ 
+# Run this robot pipeline every time code is pushed to Github
 on:
   push:
-    branches:["main"]
-
+    branches: [ "main" ]
+ 
 jobs:
   test-and-build:
-    runs on: ubuntu-latest
+    runs-on: ubuntu-latest
+ 
     steps:
-   -name: Checkout code
-    uses: actions/checkout@v4
-   -name: Set up Python
-    uses: actions/setup-python@v4
-    with:
-      python-version: '3.10'
-  -name: Install Flask and test syntax
-  run: |
-    pip install flask
-    python -m py_compile app.py
-  -name: Build Docker image
-  run: |
-    docker build -t my-python-app:latest .
+    # Step 1: Download the code onto the GitHub robot computer
+    - name: Checkout code
+      uses: actions/checkout@v4
+ 
+    # Step 2: Set up Python on the robot computer
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-with: '3.10'
+ 
+    # Step 3: Test if the Python code has any obvious typing errors
+    - name: Install Flask & Test syntax
+      run: |
+        pip install flask
+        python -m py_compile app.py
+ 
+    # Step 4: Test building the Docker box to make sure the Dockerfile works
+    - name: Build Docker Image
+      run: |
+        docker build -t my-python-app:latest .
