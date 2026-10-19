@@ -10,11 +10,10 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-    # Step 1: Download the code onto the GitHub robot computer
+  
     - name: Checkout code
       uses: actions/checkout@v4
  
-    # Step 2: Set up Python on the robot computer
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
