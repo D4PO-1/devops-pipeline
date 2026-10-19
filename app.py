@@ -8,7 +8,7 @@ db = Redis(host='redis-db', port=6379, decode_responses=True)
 @app.route('/')
 def home():
     visitors = db.incr('visitor_count')
-    return f"<h1>Welcome to the This App, This means it is running!</h1><p>This page has been visited {visitors} times.</p>"
+    return f"<h1>Hallelujahhhhhh, This means it is running!</h1><p>This page has been visited {visitors} times.</p>"
 
 @app.route('/health')
 def health():
